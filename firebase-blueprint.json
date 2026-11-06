@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "InspectionRecord": {
+      "title": "InspectionRecord",
+      "description": "A completed or in-progress inspection record for a checklist template",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "templateId": { "type": "string" },
+        "templateTitle": { "type": "string" },
+        "shift": { "type": "string" },
+        "inspectorId": { "type": "string" },
+        "inspectorName": { "type": "string" },
+        "inspectorCode": { "type": "string" },
+        "date": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "status": { "type": "string" },
+        "overallNotes": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "approvalStatus": { "type": "string" }
+      },
+      "required": ["id", "templateId", "inspectorName", "status", "timestamp"]
+    },
+    "ChecklistTemplate": {
+      "title": "ChecklistTemplate",
+      "description": "A checklist template defining items to be inspected per shift",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "icon": { "type": "string" },
+        "version": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "category"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "An employee or manager user in the system",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "department": { "type": "string" },
+        "employeeCode": { "type": "string" },
+        "username": { "type": "string" },
+        "password": { "type": "string" },
+        "email": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "username", "password"]
+    },
+    "Schedule": {
+      "title": "Schedule",
+      "description": "Weekly shift scheduling mapping per employee",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "shifts": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id"]
+    },
+    "SupplementalRequest": {
+      "title": "SupplementalRequest",
+      "description": "Request for supplemental inspection after shift timing closes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "templateId": { "type": "string" },
+        "shift": { "type": "string" },
+        "requestedBy": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "templateId", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/records/{recordId}": {
+      "schema": "InspectionRecord",
+      "description": "Inspection execution records"
+    },
+    "/templates/{templateId}": {
+      "schema": "ChecklistTemplate",
+      "description": "Checklist templates for hotel facilities and equipment"
+    },
+    "/employees/{employeeId}": {
+      "schema": "Employee",
+      "description": "System user profiles, roles and credentials"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": "Schedule",
+      "description": "Weekly assigned shifts"
+    },
+    "/supplementalRequests/{requestId}": {
+      "schema": "SupplementalRequest",
+      "description": "Supplemental inspection requests submitted by staff"
+    }
+  }
+}
